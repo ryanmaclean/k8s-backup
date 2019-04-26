@@ -1,12 +1,10 @@
-#!/bin/bash
-###########
+#!/usr/bin/env bash
 
 # Global Configurations
-#======================
 BACKUP_DIR=/usr/local/backup
-AWS_CMD=/usr/bin/aws
+#AWS_CMD=/usr/bin/aws
 TIME_STAMP=$(date +%Y-%m-%d_%H-%M)
-######################
+
 function get_secret {
   kubectl get secret -n ${1} -o=yaml --export --field-selector type!=kubernetes.io/service-account-token | sed -e '/kubectl\.kubernetes\.io\/last\-applied\-configuration:/,+1d' -e '/resourceVersion: "[0-9]\+"/d' -e '/uid: [a-z0-9-]\+/d' -e '/selfLink: [a-z0-9A-Z/]\+/d'
 }
@@ -91,4 +89,4 @@ function upload_backup_to_s3 {
 ###########
 export_ns
 archive_ns
-upload_backup_to_s3
+#upload_backup_to_s3
